@@ -1,7 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from InstaJZ.models import InstaUser
+from .models import InstaUser
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):

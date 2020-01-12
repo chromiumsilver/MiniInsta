@@ -7,7 +7,7 @@
 <div class="row single-post">
     <div class="single-post-card view-update {{ object.pk }}">
         <div class="header">
-            <a href="{% url 'helloworld' %}">
+            <a href="{% url 'profile' object.author.pk %}">
                 {% if object.author.profile_pic %}
                 <img class="picture-circle--medium"
                     src="http://{{ request.META.HTTP_HOST }}/{{object.author.profile_pic.url}}">
@@ -16,10 +16,36 @@
             </a>
         </div>
         <div class="image__wrapper">
-            <img class="card__main-image" src="http://{{ request.META.HTTP_HOST }}/{{object.image.url}}" width='1000' ,
-                height='1000'>
+            <img class="card__main-image" src="http://{{ request.META.HTTP_HOST }}/{{object.image.url}}" width='1000' height='1000'>
+            {% if user.pk == post.author.pk %}
+                <a href="{% url 'update_post' post.pk %}">
+                    <div class="content">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Edit Post
+                    </div>
+                </a>
+                <a href="{% url 'delete_post' post.pk %}">
+                    <div class="content">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete Post
+                    </div>
+                </a>
+            {% endif %}
         </div>
         <div class="comments-portion">
+            <ul class="comment-list">
+                {% for comment in object.comments.all %}
+                <li class="comment-list__comment">
+                    <a href="{% url 'profile' comment.user.pk %}" class="user">
+                        {% if comment.user.profile_pic %}
+                        <img class="picture-circle--medium"
+                            src="http://{{ request.META.HTTP_HOST }}/{{comment.user.profile_pic.url}}">
+                        {% endif %}
+                        {{ comment.user.username }}
+                    </a>
+                    <span class="comment">{{ comment.comment }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        
             <div class="likes-timestamp-row">
                 <div class="likes">
                     {% if object.get_like_count %}
@@ -27,26 +53,16 @@
                     {% endif %}
                 </div>
                 <div class="timestamp">
-                    {{ object.posted_on|timesince }}
+                    {{ object.posted_on|timesince }} ago
                 </div>
             </div>
-            <ul class="comment-list">
-                {% for comment in object.comments.all %}
-                <li class="comment-list__comment">
-                    <a href="{% url 'helloworld' %}" class="user">
-                        {{ comment.user.username }}
-                    </a>
-                    <span class="comment">{{ comment.comment }}</span>
-                </li>
-                {% endfor %}
-            </ul>
             <section class="input-row">
                 <i class="fa {% has_user_liked_post post user %} submit-like" aria-hidden="true"></i>
-                <div class="comment-input-wrapper">
-                    <input class="add-comment" type="text" placeholder="Add a comment...">
-                </div>
                 <div class="hidden-data {{ object.pk }}" style="display: none;">
                     <span class="post-pk">{{ object.pk }}</span>
+                </div>
+                <div class="comment-input-wrapper">
+                    <input class="add-comment" type="text" placeholder="Add a comment...">
                 </div>
             </section>
         </div>

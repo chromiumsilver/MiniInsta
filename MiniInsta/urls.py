@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from InstaJZ.views import (HelloWorld, PostsView, PostCreateView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserDetailView, addLike)
+from .views import (HelloWorld, PostsView, ExploreView, PostCreateView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserDetailView, UserUpdateView, addLike, addComment, toggleFollow)
 urlpatterns = [
     path('helloworld', HelloWorld.as_view(), name='helloworld'),
     path('', PostsView.as_view(), name='posts'),
+    path('explore/', ExploreView.as_view(), name='explore'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('post/new/', PostCreateView.as_view(), name='make_post'),
     path('post/update/<int:pk>/', PostUpdateView.as_view(), name='update_post'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='delete_post'),
     path('like', addLike, name='addLike'),
+    path('comment', addComment, name='addCommnet'),
     path('user/<int:pk>/', UserDetailView.as_view(), name='profile'),
+    path('user/update/<int:pk>/', UserUpdateView.as_view(), name='edit_profile'),
+    path('togglefollow', toggleFollow, name='toggleFollow'),
 ]

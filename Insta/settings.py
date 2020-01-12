@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'InstaJZ',
+    'MiniInsta',
     'imagekit',
 ]
 
@@ -129,7 +129,7 @@ LOGIN_REDIRECT_URL = 'posts'
 
 LOGOUT_REDIRECT_URL = 'posts'
 
-AUTH_USER_MODEL = 'InstaJZ.InstaUser'
+AUTH_USER_MODEL = 'MiniInsta.InstaUser'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

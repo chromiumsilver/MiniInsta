@@ -2,7 +2,7 @@ import re
 
 from django import template
 from django.urls import NoReverseMatch, reverse
-from InstaJZ.models import Like
+from ..models import Like
 
 register = template.Library()
 

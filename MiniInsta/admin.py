@@ -1,5 +1,5 @@
 from django.contrib import admin
-from InstaJZ.models import Post, InstaUser, Like, Comment, UserConnection
+from MiniInsta.models import Post, InstaUser, Like, Comment, UserConnection
 
 # Register your models here.
 admin.site.register(Post)
