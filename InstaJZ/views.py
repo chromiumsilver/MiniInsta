@@ -16,11 +16,13 @@ class PostsView(ListView):
 
     def get_queryset(self):
         current_user = self.request.user
-        following = set()
-        for conn in current_user.get_connections().select_related('following'):
-            following.add(conn.following)
-        
-        return Post.objects.filter(author__in=following)
+        if current_user.is_authenticated:
+            following = set()
+            for conn in current_user.get_connections().select_related('following'):
+                following.add(conn.following)
+            
+            return Post.objects.filter(author__in=following)
+        return Post.objects.all
 
 class PostDetailView(DetailView):
     model = Post
